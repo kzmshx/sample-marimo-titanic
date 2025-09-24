@@ -26,6 +26,18 @@ uv sync
 marimo edit titanic.py
 ```
 
+### 閲覧モードの起動
+
+```bash
+marimo run titanic.py
+```
+
+### Python スクリプトとしての実行
+
+```bash
+python titanic.py
+```
+
 ### Jupyter Notebook ファイルへのエクスポート
 
 ```bash

@@ -14,7 +14,6 @@ def _(mo):
 def _():
     import marimo as mo
     import polars as pl
-
     return mo, pl
 
 
@@ -143,6 +142,12 @@ def _(pl, predictions, test_data):
         }
     )
     output.head(10)
+    return (output,)
+
+
+@app.cell
+def _(output):
+    print(output.head(10))
     return
 
 

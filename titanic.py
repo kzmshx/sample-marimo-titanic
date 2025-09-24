@@ -6,7 +6,7 @@ app = marimo.App(width="medium")
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""# Titanic Tutorial with Marimo""")
+    mo.md(r"""# Marimo で Titanic Tutorial""")
     return
 
 
@@ -22,6 +22,12 @@ def _(pl):
     train_data = pl.read_csv("./data/train.csv")
     test_data = pl.read_csv("./data/test.csv")
     return test_data, train_data
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""リアクティブ変数""")
+    return
 
 
 @app.cell
@@ -40,6 +46,12 @@ def _(head_cnt, train_data):
 @app.cell
 def _(head_cnt, test_data):
     test_data.head(n=head_cnt.value)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""ステップの結果を Markdown で表示""")
     return
 
 
@@ -78,6 +90,12 @@ def _(mo, pl, train_data):
         {rate_men}
         """
     )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""複数セレクトボックスなんかもビルトインであります。""")
     return
 
 
@@ -151,8 +169,59 @@ def _(output):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""---""")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""# SQL を使ってみる""")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""DuckDB による SQL でのデータ分析がデフォルトで組み込まれてます。""")
+    return
+
+
 @app.cell
-def _():
+def _(mo):
+    _df = mo.sql(
+        f"""
+        SELECT * FROM READ_CSV("./data/train.csv")
+        """
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        r"""
+    DuckDB なので DataFrame を SQL 解析するということもできます。裏では以下のような Python コードになってます。
+
+    ```py
+    mo.sql(
+        f\"""
+        SELECT SUM(t.Survived) / COUNT(t.Survived) FROM train_data t WHERE t.Sex = 'female'
+        \"""
+    )
+    ```
+    """
+    )
+    return
+
+
+@app.cell
+def _(mo, train_data):
+    _df = mo.sql(
+        f"""
+        SELECT SUM(t.Survived) / COUNT(t.Survived) FROM train_data t WHERE t.Sex = 'female'
+        """
+    )
     return
 
 
